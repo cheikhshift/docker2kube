@@ -10,7 +10,7 @@ Generate a Kubernetes deployment configuration file.
 
 ## How to install
 
-	go get github.com/cheikhshift/docker2kube/kubeconfig
+	go get github.com/cheikhshift/docker2kube/cmd/kubeconfig
 
 ## Add a Dockerfile
 If you already have a `Dockerfile` within your project directory you may skip this step. Use the following `Dockerfile` starter to get you started (Update it as needed) :
