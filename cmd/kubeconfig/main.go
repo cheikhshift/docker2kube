@@ -21,11 +21,9 @@ func main(){
 	} else {
 		core.RunCmd("dep ensure -update")
 	}
-
-	fmt.Println("Build docker image with command :  docker build -t ", name , " .")
-
-	fmt.Println("LimitRange created in namespace : ", name )
 	cfg,err := core.Config()
+	fmt.Println("\n\n\nBuild docker image with command :  docker build -t ", name , " .")
+	
 	if err == nil || len(os.Args) > 2 {
 	var Port string
 	if err != nil {
@@ -64,7 +62,7 @@ spec:
     ioutil.WriteFile("default-deployment.yaml", bPFile, 0700)
 
 	fmt.Println("Saved Kubernetes deployment configuration to directory as default-deployment.yaml.")
-	fmt.Println("Your deployment's name is ", name,"-deployment")
+	fmt.Println("Your deployment's name is ", fmt.Sprintf("%s-deployment",name) )
 
 	fmt.Println("Create deployment with command : kubectl create -f default-deployment.yaml")
 	
