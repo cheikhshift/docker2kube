@@ -25,7 +25,7 @@ If you already have a `Dockerfile` within your project directory you may skip th
 
 
 ## Command syntax
-
+The command will write a new kubernetes deployment file, within your current working directory (name : `default-deployment.yaml`). Please verify and update information within this file prior to deployment. 
 (IF project is GopherSauce)
 
 	kubeconfig
