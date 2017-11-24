@@ -24,7 +24,7 @@ func main(){
 	cfg,err := core.Config()
 	fmt.Println("\n\n\nBuild docker image with command :  docker build -t ", name , " .")
 	
-	if err == nil || len(os.Args) > 2 {
+	if err == nil || len(os.Args) > 1 {
 	var Port string
 	if err != nil {
 		Port = os.Args[1]
