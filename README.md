@@ -54,7 +54,9 @@ Run the following command to open the very helpful kubernetes dashboard. From he
 
 Notes on Kubernetes : I was skeptical at first but this thing really makes a difference. I setup a deployment file with kubeconfig (command in repository) to launch a deployment with 10 instances. With `go-wrk` I can complete 3000 requests in 4 seconds now. The kubeconfig deployment file will also have container resource limit. By default it is 128MB max memory. If a replica container goes over the limit, Kubernetes will restart it.
 
-Deploying Stateful applications : Create a StatefulSet with configuration file starter `default-statefulset.yaml`,  generated when you run command `kubeconfig`. This will also create a new service as well.
+Deploying Stateful applications : Create a StatefulSet with configuration file starter `default-statefulset.yaml`,  generated when you run command `kubeconfig`. This will also create 
+- a new service.
+- a persistent volume & claim.
 
 
 
