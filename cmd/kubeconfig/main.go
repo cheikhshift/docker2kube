@@ -38,7 +38,7 @@ metadata:
   labels:
     app: %s
 spec:
-  replicas: 10
+  replicas: 16
   selector:
     matchLabels:
       app: %s
@@ -62,6 +62,75 @@ spec:
     ioutil.WriteFile("default-deployment.yaml", bPFile, 0700)
 
 	fmt.Println("Saved Kubernetes deployment configuration to directory as default-deployment.yaml.")
+	ssSet := fmt.Sprintf(`kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: %s-shared
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 25Gi
+  accessModes: ["ReadWriteMany"]
+  hostPath:
+    path: "/tmp/"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: %s-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 3Gi
+---
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: %s-service
+spec:
+  selector:
+    matchLabels:
+      app: %s # has to match .spec.template.metadata.labels
+  serviceName: "%s"
+  replicas: 10 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: %s # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: %s
+        image: %s:latest
+        imagePullPolicy : Never
+        ports:
+        - containerPort: %s
+        volumeMounts:
+        - name: %s-storage
+          mountPath: /tmp/
+      volumes:
+      - name: %s-storage
+        persistentVolumeClaim:
+          claimName: %s-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: %s
+  labels:
+    app: %s
+spec:
+  ports:
+  - port: %s
+  type: LoadBalancer
+  selector:
+    app: %s`,name,name,name,name ,name,name,name,name,Port, name,name,name,name,name,Port,name)
+    stsB := []byte(ssSet)
+	fmt.Println("A statefulset configuration is also saved to directory as default-statefulset.yaml")
+	 ioutil.WriteFile("default-statefulset.yaml", stsB, 0700)
 	fmt.Println("Your deployment's name is ", fmt.Sprintf("%s-deployment",name) )
 
 	fmt.Println("Create deployment with command : kubectl create -f default-deployment.yaml")
