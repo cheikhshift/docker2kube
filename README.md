@@ -34,7 +34,7 @@ Run the following command to launch a new deployment.
 	kubectl create -f default-deployment.yaml
 
 ## Step 4 : Create service
-The following command will create a new load balancer services for your deployment.
+The following command will create a new load balancer service of your deployment.
 
 	kubectl expose deployment {folderName}-deployment --type=LoadBalancer
 
