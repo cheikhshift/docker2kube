@@ -108,6 +108,11 @@ spec:
         imagePullPolicy : Never
         ports:
         - containerPort: %s
+        resources:
+            limits:
+              memory: 128Mi
+            requests:
+              memory: 64Mi
         volumeMounts:
         - name: %s-storage
           mountPath: /tmp/
