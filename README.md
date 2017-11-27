@@ -58,5 +58,7 @@ Deploying Stateful applications : Create a StatefulSet with configuration file s
 - a new service.
 - a persistent volume & claim.
 
+Read this [guide](https://github.com/cheikhshift/docker2kube/blob/master/TLS.md) to secure your GopherSauce application with TLS. 
+
 
 
